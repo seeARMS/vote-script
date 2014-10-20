@@ -32,14 +32,21 @@ def query(url):
 
   output = StringIO.StringIO()
 
-  data = json.dumps({"token": "6615e8c4628cf84de2118028cddd4091", "voteTag": "vote"})
+  data = json.dumps({"token": "dc70386f20d9bf37c27d6588b43ef946", "voteTag": "vote"})
+  headers = ['Accept: application/json', 
+			 'Host: www.smarttechchallenge.ca',
+			 'Origin': 'http://www.smarttechchallenge.ca',
+			 'Referer': 'http://www.smarttechchallenge.ca/entry/7879601',
+			 'User-Agent:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36']
+			 
+  
   
   query = pycurl.Curl()
   query.setopt(pycurl.URL, url)
   query.setopt(pycurl.PROXY, 'localhost')
   query.setopt(pycurl.PROXYPORT, SOCKS_PORT)
   query.setopt(pycurl.PROXYTYPE, pycurl.PROXYTYPE_SOCKS5)
-  query.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
+  query.setopt(pycurl.HTTPHEADER, headers)
   query.setopt(pycurl.WRITEFUNCTION, output.write)
   query.setopt(pycurl.POST, 1)
   query.setopt(pycurl.POSTFIELDS, data)
