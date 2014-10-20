@@ -4,7 +4,7 @@ import urllib
 import pycurl
 import json
 
-import socks  # SocksiPy module
+import socks 
 import stem.process
 from stem.control import Controller
 
@@ -40,20 +40,18 @@ def query(url):
   query.setopt(pycurl.PROXYPORT, SOCKS_PORT)
   query.setopt(pycurl.PROXYTYPE, pycurl.PROXYTYPE_SOCKS5)
   query.setopt(pycurl.HTTPHEADER, ['Accept: application/json'])
-  #query.setopt(pycurl.WRITEFUNCTION, output.write)
+  query.setopt(pycurl.WRITEFUNCTION, output.write)
   query.setopt(pycurl.POST, 1)
   query.setopt(pycurl.POSTFIELDS, data)
 
   try:
-    query.perform()
+	for (i in range(0,10):
+		query.perform()
     return output.getvalue()
   except pycurl.error as exc:
     return "Unable to reach %s (%s)" % (url, exc)
 
-
-# Start an instance of Tor configured to only exit through Russia. This prints
-# Tor's bootstrap information as it starts. Note that this likely will not
-# work if you have another Tor instance running.
+# Start an instance of Tor, and print Tor's bootstrap info as it starts
 
 def print_bootstrap_lines(line):
   if "Bootstrapped " in line:
