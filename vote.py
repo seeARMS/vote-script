@@ -6,6 +6,7 @@ import json
 
 import socks  # SocksiPy module
 import stem.process
+from stem.control import Controller
 
 from stem.util import term
 
@@ -21,8 +22,8 @@ socket.socket = socks.socksocket
 def getaddrinfo(*args):
   return [(socket.AF_INET, socket.SOCK_STREAM, 6, '', (args[0], args[1]))]
 
-socket.getaddrinfo = getaddrinfo
 
+socket.getaddrinfo = getaddrinfo
 
 def query(url):
   """
@@ -69,6 +70,10 @@ tor_process = stem.process.launch_tor_with_config(
 )
 
 print term.format("\nChecking our endpoint:\n", term.Attr.BOLD)
-print term.format(query("http://www.smarttechchallenge.ca/js/vote/7879601/1"), term.Color.BLUE)
+nice = 0
+for i in range(10):
+	print nice
+	print term.format(query("http://www.smarttechchallenge.ca/js/vote/7879601/1"),term.Color.BLUE)
+	nice+=1
 
 tor_process.kill()  # stops tor
