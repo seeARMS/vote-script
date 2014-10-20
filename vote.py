@@ -68,10 +68,6 @@ tor_process = stem.process.launch_tor_with_config(
 )
 
 print term.format("\nChecking our endpoint:\n", term.Attr.BOLD)
-nice = 0
-for i in range(10):
-	print nice
 	print term.format(query("http://www.smarttechchallenge.ca/js/vote/7879601/1"),term.Color.BLUE)
-	nice+=1
 
 tor_process.kill()  # stops tor
