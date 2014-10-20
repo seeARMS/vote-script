@@ -3,6 +3,9 @@ import socket
 import urllib
 import pycurl
 import json
+import string
+import random
+
 
 import socks 
 import stem.process
@@ -25,6 +28,10 @@ def getaddrinfo(*args):
 
 socket.getaddrinfo = getaddrinfo
 
+def token_gen(size=32, chars=string.ascii_uppercase + string.ascii_lowercase + string.digits):
+   return ''.join(random.choice(chars) for _ in range(size))
+
+
 def query(url):
   """
   Uses pycurl to fetch a site using the proxy on the SOCKS_PORT.
@@ -32,7 +39,7 @@ def query(url):
 
   output = StringIO.StringIO()
 
-  data = json.dumps({"token": "dc70386f20d9bf37c27d6588b43ef946", "voteTag": "vote"})
+  data = json.dumps({"token": token_gen(), "voteTag": "vote"})
   headers = ['Accept: application/json', 
 			 'Host: www.smarttechchallenge.ca',
 			 'Origin': 'http://www.smarttechchallenge.ca',
